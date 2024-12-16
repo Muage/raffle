@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid'
 import '../assets/css/raffle.css'
 import { BiPlusCircle } from "react-icons/bi";
 import { Entry } from "../models/Entry"
+import Winner from "./Winner"
 
 interface Props {
     entries: Entry[],
@@ -40,8 +41,13 @@ const Raffle = ({ entries, setEntries }: Props) => {
 
     const updateRaffleInfoList = (id: string, updateInfo: Partial<RaffleInfo>) => {
         setRaffleInfoList((prevList) =>
-            prevList.map((raffleInfo) => 
-                id === raffleInfo.id ? { ...raffleInfo, ...updateInfo } : raffleInfo
+            prevList.map((raffleInfo) => {
+                if(id === raffleInfo.id) {
+                    return { ...raffleInfo, ...updateInfo }
+                } else {
+                    return raffleInfo
+                }
+            }
         ))
     }
 
@@ -87,7 +93,12 @@ const Raffle = ({ entries, setEntries }: Props) => {
         ))}
         {raffleInfoList.length < 5 && <BiPlusCircle size={30} onClick={addRaffleTitle} />}
         {raffleInfoList.length > 0 && <button onClick={raffle}>Raffle</button>}
-        {/* <Winner /> */}
+        
+        {raffleInfoList.map((raffleInfo) => {
+            if(raffleInfo.winners.length > 0) {
+                return <Winner key={raffleInfo.id} title={raffleInfo.title} winners={raffleInfo.winners} />
+            }
+        })}
         </>
     )
 }

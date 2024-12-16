@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import LeftNavBar from '../component/LeftNavBar'
 import Content from '../component/Content'
+import { BiMenu } from "react-icons/bi";
 
 const MainPage = () => {
 
@@ -14,7 +15,7 @@ const MainPage = () => {
         <>
         <div className=''>
             {!isNavOpen &&
-                <button className="btn-menu" onClick={toggleNav}>☰</button>
+                <BiMenu className="btn-menu" size={30} onClick={toggleNav} />
             }
 
             <LeftNavBar isNavOpen={isNavOpen} toggleNav={toggleNav} />

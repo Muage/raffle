@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { BiX } from "react-icons/bi";
 import '../assets/css/layout.css'
 
 interface Props {
@@ -11,7 +12,7 @@ const LeftNavBar = ({ isNavOpen, toggleNav }: Props) => {
     return (
         <div className={`left-nav-bar ${isNavOpen ? 'open' : 'colsed'}`}>
             {isNavOpen && 
-                <button className="btn-close" onClick={toggleNav}>X</button>
+                <BiX className="btn-close" size={30} onClick={toggleNav} />
             }
             <ul>
                 <li><Link to="/">Entries Management</Link></li>
