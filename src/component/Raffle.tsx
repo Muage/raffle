@@ -9,12 +9,10 @@ import Winner from "./Winner"
 
 interface Props {
     entries: Entry[],
-    setEntries: React.Dispatch<React.SetStateAction<Entry[]>>,
 }
 
-const Raffle = ({ entries, setEntries }: Props) => {
+const Raffle = ({ entries }: Props) => {
     const [raffleInfoList, setRaffleInfoList] = useState<RaffleInfo[]>([{ id: uuid(), title: '', winNum: 1, winners: [] }])
-    const [raffleEntry, setRaffleEntry] = useState<string[]>([])
 
     const columns = 7
     const rows = Array.from(
@@ -35,8 +33,23 @@ const Raffle = ({ entries, setEntries }: Props) => {
     }
 
     const raffle = () => {
-        // setRaffleEntry(shuffle(entries).splice(0, raffleInfo.winNum))
-        console.log(raffleInfoList)
+        const shuffledEntries = shuffle(entries.map((entry) => entry.name)) // 참가자 이름 shuffle
+        let currentIndex = 0                                                // 현재 참가자 인덱스 추적
+
+        setRaffleInfoList((prevList) => {
+            return prevList.map((raffleInfo) => {
+                const availableSlots = shuffledEntries.slice(currentIndex, currentIndex + raffleInfo.winNum)
+
+                if (availableSlots.length < raffleInfo.winNum) {
+                    console.warn(`Raffle "${raffleInfo.title}"의 winNum이 참가자 수를 초과했습니다.`)
+                }
+
+                currentIndex += raffleInfo.winNum                   // 현재 인덱스를 사용한 만큼 이동
+
+                return { ...raffleInfo, winners: availableSlots }   // 해당 Raffle의 당첨자 설정
+                
+            })
+        })
     }
 
     const updateRaffleInfoList = (id: string, updateInfo: Partial<RaffleInfo>) => {
@@ -95,8 +108,10 @@ const Raffle = ({ entries, setEntries }: Props) => {
         {raffleInfoList.length > 0 && <button onClick={raffle}>Raffle</button>}
         
         {raffleInfoList.map((raffleInfo) => {
-            if(raffleInfo.winners.length > 0) {
+            if(raffleInfo.title !== '' && raffleInfo.winners.length > 0) {
                 return <Winner key={raffleInfo.id} title={raffleInfo.title} winners={raffleInfo.winners} />
+            } else {
+                return <div>추첨 제목을 정해주세요!</div>
             }
         })}
         </>

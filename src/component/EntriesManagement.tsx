@@ -22,7 +22,7 @@ const EntriesManagement = ({ entries, setEntries }: Props) => {
 
     const insertEntry = (name: string) => {
         if(name.trim() !== '') {
-            const newEntry: Entry = { id: uuid(), name: name }
+            const newEntry: Entry = { id: uuid(), name: name, winStatus: false }
             setEntries((prevEntries) => [...prevEntries, newEntry])
             setName('')
         } else {
