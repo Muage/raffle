@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react"
-import RaffleTitle from "./RaffleTitle"
+import RaffleCondition from "./RaffleCondition"
 import { RaffleInfo } from "../models/Raffle"
 import { v4 as uuid } from 'uuid'
 import '../assets/css/raffle.css'
 import { BiPlusCircle } from "react-icons/bi";
+import { Entry } from "../models/Entry"
 
 interface Props {
-    entries: string[],
-    setEntries: (entries: string[]) => void
+    entries: Entry[],
+    setEntries: React.Dispatch<React.SetStateAction<Entry[]>>,
 }
 
 const Raffle = ({ entries, setEntries }: Props) => {
-    const [raffleInfoList, setRaffleInfoList] = useState<RaffleInfo[]>([{ id: uuid(), title: '', winNum: 1 }])
+    const [raffleInfoList, setRaffleInfoList] = useState<RaffleInfo[]>([{ id: uuid(), title: '', winNum: 1, winners: [] }])
     const [raffleEntry, setRaffleEntry] = useState<string[]>([])
 
     const columns = 7
@@ -45,7 +46,7 @@ const Raffle = ({ entries, setEntries }: Props) => {
     }
 
     const addRaffleTitle = () => {
-        setRaffleInfoList((prevList) => [...prevList, { id: uuid(), title: '', winNum: 1 }])
+        setRaffleInfoList((prevList) => [...prevList, { id: uuid(), title: '', winNum: 1, winners: [] }])
     }
 
     const removeRaffleTitle = (id: string) => {
@@ -67,7 +68,7 @@ const Raffle = ({ entries, setEntries }: Props) => {
                             {row.map((entry, index) => (
                                 <td key={index}>
                                     <img src="images/favicon144.png" width={15}/>
-                                    {entry}
+                                    {entry.name}
                                 </td>
                             ))}
                         </tr>
@@ -77,7 +78,7 @@ const Raffle = ({ entries, setEntries }: Props) => {
         </div>
 
         {raffleInfoList.map((raffleInfo) => (
-            <RaffleTitle
+            <RaffleCondition
                 key={raffleInfo.id}
                 entries={entries}
                 raffleInfo={raffleInfo}
