@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { BiPlusCircle } from "react-icons/bi";
 import { Entry } from "../models/Entry";
 import { v4 as uuid } from 'uuid'
@@ -22,7 +22,7 @@ const EntriesManagement = ({ entries, setEntries }: Props) => {
 
     const insertEntry = (name: string) => {
         if(name.trim() !== '') {
-            const newEntry: Entry = { id: uuid(), name: name, winStatus: false }
+            const newEntry: Entry = { id: uuid(), name: name }
             setEntries((prevEntries) => [...prevEntries, newEntry])
             setName('')
         } else {

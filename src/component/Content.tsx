@@ -11,17 +11,17 @@ interface Props {
 
 // TODO: 임시 데이터로 개발 완료 시 삭제하고 useState 기본값은 []로 수정하기
 const initEntry = [
-    { id: uuid(), name: '유재석', winStatus: false },
-    { id: uuid(), name: '박명수', winStatus: false },
-    { id: uuid(), name: '정준하', winStatus: false },
-    { id: uuid(), name: '정형돈', winStatus: false },
-    { id: uuid(), name: '노홍철', winStatus: false },
-    { id: uuid(), name: '하동훈', winStatus: false },
-    { id: uuid(), name: '홍진경', winStatus: false },
-    { id: uuid(), name: '황광희', winStatus: false },
-    { id: uuid(), name: '김종국', winStatus: false },
-    { id: uuid(), name: '송지효', winStatus: false },
-    { id: uuid(), name: '지석진', winStatus: false },
+    { id: uuid(), name: '유재석' },
+    { id: uuid(), name: '박명수' },
+    { id: uuid(), name: '정준하' },
+    { id: uuid(), name: '정형돈' },
+    { id: uuid(), name: '노홍철' },
+    { id: uuid(), name: '하동훈' },
+    { id: uuid(), name: '홍진경' },
+    { id: uuid(), name: '황광희' },
+    { id: uuid(), name: '김종국' },
+    { id: uuid(), name: '송지효' },
+    { id: uuid(), name: '지석진' },
 ]
 
 const Content = ({ isNavOpen }: Props) => {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import RaffleCondition from "./RaffleCondition"
 import { RaffleInfo } from "../models/Raffle"
 import { v4 as uuid } from 'uuid'
@@ -12,6 +12,7 @@ interface Props {
 }
 
 const Raffle = ({ entries }: Props) => {
+
     const [raffleInfoList, setRaffleInfoList] = useState<RaffleInfo[]>([{ id: uuid(), title: '', winNum: 1, winners: [] }])
 
     const columns = 7
@@ -33,23 +34,28 @@ const Raffle = ({ entries }: Props) => {
     }
 
     const raffle = () => {
-        const shuffledEntries = shuffle(entries.map((entry) => entry.name)) // 참가자 이름 shuffle
-        let currentIndex = 0                                                // 현재 참가자 인덱스 추적
+        let sumWinNum = 0
+        for(let raffleInfo of raffleInfoList) {
+            sumWinNum += raffleInfo.winNum
+        }
 
-        setRaffleInfoList((prevList) => {
-            return prevList.map((raffleInfo) => {
-                const availableSlots = shuffledEntries.slice(currentIndex, currentIndex + raffleInfo.winNum)
+        if(sumWinNum <= entries.length) {
+            const shuffledEntries = shuffle(entries.map((entry) => entry.name)) // 참가자 이름 shuffle
+            let currentIndex = 0                                                // 현재 참가자 인덱스 추적
 
-                if (availableSlots.length < raffleInfo.winNum) {
-                    console.warn(`Raffle "${raffleInfo.title}"의 winNum이 참가자 수를 초과했습니다.`)
-                }
+            setRaffleInfoList((prevList) => {
+                return prevList.map((raffleInfo) => {
+                    const winners = shuffledEntries.slice(currentIndex, currentIndex + raffleInfo.winNum)
 
-                currentIndex += raffleInfo.winNum                   // 현재 인덱스를 사용한 만큼 이동
+                    currentIndex += raffleInfo.winNum           // 현재 인덱스를 사용한 만큼 이동
 
-                return { ...raffleInfo, winners: availableSlots }   // 해당 Raffle의 당첨자 설정
-                
+                    return { ...raffleInfo, winners: winners }  // 해당 Raffle의 당첨자 설정
+                })
             })
-        })
+        } else {
+            // TODO: toast "당첨자 수가 추첨 대상보다 많습니다."
+            console.warn(`${sumWinNum}, ${entries.length}`)
+        }
     }
 
     const updateRaffleInfoList = (id: string, updateInfo: Partial<RaffleInfo>) => {
@@ -71,10 +77,6 @@ const Raffle = ({ entries }: Props) => {
     const removeRaffleTitle = (id: string) => {
         setRaffleInfoList((prevList) => prevList.filter((raffleInfo) => id !== raffleInfo.id))
     }
-
-    // useEffect(() => {
-    //     setEntries(entries.filter((entry) => !raffleEntry.includes(entry)))
-    // }, [raffleEntry])
 
     return (
         <>
@@ -108,14 +110,13 @@ const Raffle = ({ entries }: Props) => {
         {raffleInfoList.length > 0 && <button onClick={raffle}>Raffle</button>}
         
         {raffleInfoList.map((raffleInfo) => {
-            if(raffleInfo.title !== '' && raffleInfo.winners.length > 0) {
+            if(raffleInfo.title !== '') {
                 return <Winner key={raffleInfo.id} title={raffleInfo.title} winners={raffleInfo.winners} />
-            } else {
-                return <div>추첨 제목을 정해주세요!</div>
             }
         })}
         </>
     )
+
 }
 
 export default Raffle
