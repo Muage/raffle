@@ -1,0 +1,91 @@
+.App {
+    display: flex;
+    position: relative;
+  }
+  
+  .content {
+    transition: margin-left 0.3s ease;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  .shifted {
+    margin-left: 220px;
+  }
+  
+  .btn-menu {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 100;
+    font-size: 24px;
+  }
+  
+  .btn-menu:hover {
+    background-color: #34495e;
+  }
+  
+  .left-nav-bar {
+    width: 200px;
+    height: 100vh;
+    background-color: #2c3e50;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: -200px;
+    transition: left 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+  }
+  
+  .left-nav-bar.open {
+    left: 0;
+  }
+  
+  .left-nav-bar.closed {
+    left: -200px;
+  }
+  
+  .left-nav-bar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .left-nav-bar li {
+    margin: 20px 0;
+  }
+  
+  .left-nav-bar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px 20px;
+  }
+  
+  .left-nav-bar a:hover {
+    background-color: #34495e;
+  }
+  
+  .btn-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+  }
+  
+  .btn-close:hover {
+    background-color: #e74c3c;
+  }
+  
