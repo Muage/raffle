@@ -8,6 +8,11 @@ table {
     margin-bottom: 20px; /* 테이블 아래 여백 */
 }
 
+.title {
+    font-size: 2em;
+    line-height: 1.1;
+}
+
 .raffle-condition-container {
     display: flex;
     flex-direction: column; /* 세로 정렬 */
@@ -21,7 +26,16 @@ table {
 }
 
 .winners-container {
-    margin-top: 20px; /* 당첨자 리스트와 위 요소 간격 */
+    display: flex;
+    flex-wrap: wrap;  /* 여러 줄로 넘어가도록 설정 */
+    gap: 20px;  /* 각 Winner 사이의 간격 */
+    margin-top: 20px;  /* 상단 간격 */
+}
+
+.winners-container > div {
+    /* 필요에 따라 Winner의 스타일을 추가합니다 */
+    display: inline-block;  /* 각 Winner의 블록 레벨 요소 */
+    margin: 0px 30px;
 }
 
 .button {

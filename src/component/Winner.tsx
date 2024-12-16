@@ -6,14 +6,16 @@ interface Props {
 const Winner = ({ title, winners }: Props) => {
     return (
         <>
-        <h1>{title}</h1>
-        <ul>
-            {winners.map((winner, index) => 
-                <li key={index}>
-                    {winner}
-                </li>
-            )}
-        </ul>
+        <div>
+            <h1 className="title">{title}</h1>
+            <ul>
+                {winners.map((winner, index) => 
+                    <li key={index}>
+                        {winner}
+                    </li>
+                )}
+            </ul>
+        </div>
         </>
     )
 }
