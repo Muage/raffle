@@ -1,11 +1,11 @@
 import { useState } from "react"
-import RaffleCondition from "./RaffleCondition"
-import { RaffleInfo } from "../models/Raffle"
 import { v4 as uuid } from 'uuid'
-import '../assets/css/raffle.css'
-import { BiPlusCircle } from "react-icons/bi";
+import { RaffleInfo } from "../models/Raffle"
 import { Entry } from "../models/Entry"
+import RaffleCondition from "./RaffleCondition"
 import Winner from "./Winner"
+import { BiPlusCircle } from "react-icons/bi"
+import '../assets/css/raffle.css'
 
 interface Props {
     entries: Entry[],
@@ -80,40 +80,48 @@ const Raffle = ({ entries }: Props) => {
 
     return (
         <>
-        <div>
-            <h1>추첨 대상</h1>
-            <table>
-                <tbody>
-                    {rows.map((row, rowIndex) => (
-                        <tr key={rowIndex}>
-                            {row.map((entry, index) => (
-                                <td key={index}>
-                                    <img src="images/favicon144.png" width={15}/>
-                                    {entry.name}
-                                </td>
-                            ))}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+        <div className="center-container">
+            <div>
+                <h1>추첨 대상</h1>
+                <table>
+                    <tbody>
+                        {rows.map((row, rowIndex) => (
+                            <tr key={rowIndex}>
+                                {row.map((entry, index) => (
+                                    <td key={index}>
+                                        <img src="images/favicon144.png" width={15}/>
+                                        {entry.name}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
 
-        {raffleInfoList.map((raffleInfo) => (
-            <RaffleCondition
-                key={raffleInfo.id}
-                entries={entries}
-                raffleInfo={raffleInfo}
-                updateRaffleInfoList={updateRaffleInfoList}
-                removeRaffleTitle={removeRaffleTitle} />
-        ))}
-        {raffleInfoList.length < 5 && <BiPlusCircle size={30} onClick={addRaffleTitle} />}
-        {raffleInfoList.length > 0 && <button onClick={raffle}>Raffle</button>}
-        
-        {raffleInfoList.map((raffleInfo) => {
-            if(raffleInfo.title !== '') {
-                return <Winner key={raffleInfo.id} title={raffleInfo.title} winners={raffleInfo.winners} />
-            }
-        })}
+            <div className="raffle-condition-container">
+                {raffleInfoList.map((raffleInfo, index) => (
+                    <RaffleCondition
+                        key={raffleInfo.id}
+                        entries={entries}
+                        raffleInfo={raffleInfo}
+                        showBtnPlus={index === raffleInfoList.length - 1}
+                        updateRaffleInfoList={updateRaffleInfoList}
+                        removeRaffleTitle={removeRaffleTitle}
+                        addRaffleTitle={addRaffleTitle} />
+                ))}
+                {raffleInfoList.length < 1 && <BiPlusCircle className="button" size={30} onClick={addRaffleTitle} />}
+                {raffleInfoList.length > 0 && <button onClick={raffle}>Raffle</button>}
+            </div>
+
+            <div className="winners-container">
+                {raffleInfoList.map((raffleInfo) => {
+                    if(raffleInfo.title !== '') {
+                        return <Winner key={raffleInfo.id} title={raffleInfo.title} winners={raffleInfo.winners} />
+                    }
+                })}
+            </div>
+        </div>
         </>
     )
 

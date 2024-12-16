@@ -3,3 +3,38 @@
     align-items: center;
     gap: 10px;
 }
+
+table {
+    margin-bottom: 20px; /* 테이블 아래 여백 */
+}
+
+.raffle-condition-container {
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
+    gap: 10px; /* 조건 간 간격 */
+}
+
+.raffle-condition-container .button-group {
+    display: flex;
+    gap: 10px; /* 버튼 간 간격 */
+}
+
+.winners-container {
+    margin-top: 20px; /* 당첨자 리스트와 위 요소 간격 */
+}
+
+.button {
+    padding: 10px 3px;
+    cursor: pointer;                /* 버튼처럼 보이게 */
+    color: #999;
+    transition: color 0.3s ease;    /* hover 효과 */
+}
+
+.button:hover {
+    color: #0056b3;
+}
+
+.btn-eraser:hover {
+    color: #e74c3c;
+}

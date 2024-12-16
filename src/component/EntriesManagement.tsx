@@ -1,8 +1,9 @@
 import { useRef, useState } from "react"
-import { BiPlusCircle } from "react-icons/bi";
-import { Entry } from "../models/Entry";
+import { BiPlusCircle } from "react-icons/bi"
+import { Entry } from "../models/Entry"
 import { v4 as uuid } from 'uuid'
-import EntryItem from "./EntryItem";
+import EntryItem from "./EntryItem"
+import '../assets/css/entry.css'
 
 interface Props {
     entries: Entry[],
@@ -47,7 +48,7 @@ const EntriesManagement = ({ entries, setEntries }: Props) => {
 
     return (
         <>
-        <div>
+        <div className="page-container">
             <h1>추첨 대상 목록</h1>
             <table>
                 <tbody>
@@ -60,13 +61,15 @@ const EntriesManagement = ({ entries, setEntries }: Props) => {
                     ))}
                 </tbody>
             </table>
-            <input
-                type="text"
-                value={name}
-                ref={inputEntry}
-                onChange={(e) => setName(e.target.value)}
-                onKeyDown={(e) => {e.key == 'Enter' && insertEntry(name)}} />
-            <BiPlusCircle className="button" size={30} onClick={() => insertEntry(name)} />
+            <div className="input-container">
+                <input
+                    type="text"
+                    value={name}
+                    ref={inputEntry}
+                    onChange={(e) => setName(e.target.value)}
+                    onKeyDown={(e) => {e.key == 'Enter' && insertEntry(name)}} />
+                <BiPlusCircle className="button" size={30} onClick={() => insertEntry(name)} />
+            </div>
         </div>
         </>
     )

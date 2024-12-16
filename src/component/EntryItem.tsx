@@ -16,22 +16,24 @@ const EntryItem = ({ entry, editEntry, deleteEntry }: Props) => {
 
     return (
         <td>
-            {isEdit ? (
-                <>
-                <input
-                    type="text"
-                    value={entry.name}
-                    onChange={(e) => {editEntry({ ...entry, name: e.target.value })}}
-                />
-                <BiSave className="button" size={30} onClick={() => setIsEdit(false)} />
-                </>
-            ) : (
-                <>
-                {entry.name}
-                <BiSolidEditAlt className="button" size={30} onClick={() => setIsEdit(true)} />
-                </>
-            )}
-            <BiSolidEraser className="button" size={30} onClick={() => deleteEntry(entry.id)} />
+            <div className="entry-item">
+                {isEdit ? (
+                    <>
+                    <input
+                        type="text"
+                        value={entry.name}
+                        onChange={(e) => {editEntry({ ...entry, name: e.target.value })}}
+                    />
+                    <BiSave className="button" size={30} onClick={() => setIsEdit(false)} />
+                    </>
+                ) : (
+                    <>
+                    {entry.name}
+                    <BiSolidEditAlt className="button" size={30} onClick={() => setIsEdit(true)} />
+                    </>
+                )}
+                <BiSolidEraser className="button btn-eraser" size={30} onClick={() => deleteEntry(entry.id)} />
+            </div>
         </td>
     )
 
