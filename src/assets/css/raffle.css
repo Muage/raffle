@@ -4,9 +4,19 @@
     gap: 10px;
 }
 
+h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+}
+
 table {
     margin-bottom: 20px; /* 테이블 아래 여백 */
 }
+
+td {
+    font-size: 1.5em;
+    padding: 5px 20px;
+  }
 
 .title {
     font-size: 2em;

@@ -15,8 +15,8 @@ const LeftNavBar = ({ isNavOpen, toggleNav }: Props) => {
                 <BiX className="btn-close" size={30} onClick={toggleNav} />
             }
             <ul>
-                <li><Link to="/">Entries Management</Link></li>
-                <li><Link to="/raffle">Raffle</Link></li>
+                <li><Link to="/">추첨 대상 목록</Link></li>
+                <li><Link to="/raffle">추첨</Link></li>
             </ul>
         </div>
     )

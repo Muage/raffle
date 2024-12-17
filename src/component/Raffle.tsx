@@ -89,7 +89,7 @@ const Raffle = ({ entries }: Props) => {
                             <tr key={rowIndex}>
                                 {row.map((entry, index) => (
                                     <td key={index}>
-                                        <img src="images/favicon144.png" width={15}/>
+                                        <img src="images/star.png" width={30}/>
                                         {entry.name}
                                     </td>
                                 ))}
