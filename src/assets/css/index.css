@@ -10,10 +10,27 @@
   font-synthesis: none;
 }
 
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
 body {
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+input {
+  font-family: "arara" !important;
+  font-size: x-large !important;
+}
+
+label {
+  font-family: "arara" !important;
+  font-size: 1.2rem !important;
+  text-align: center;
 }

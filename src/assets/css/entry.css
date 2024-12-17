@@ -1,24 +1,38 @@
 .input-container {
     display: flex;
-    align-items: center;            /* 수직 정렬 */
-    gap: 10px;                      /* 요소 간 간격 */
+    margin-top: 50px;
+    align-items: center;    /* 수직 정렬 */
+    gap: 10px;              /* 요소 간 간격 */
 }
 
-table {
-    margin-bottom: 20px; /* 테이블 아래 여백 */
+.entry-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
 }
 
-input {
-    flex: 1;                        /* 필요하면 입력 필드를 유연하게 확장 */
-    padding: 5px;
-    font-size: 16px;
+.entry-item-left {
+    flex: 1
 }
 
-.button {
-    padding: 10px 3px;
-    cursor: pointer;                /* 버튼처럼 보이게 */
-    color: #999;
-    transition: color 0.3s ease;    /* hover 효과 */
+.entry-item-right {
+    display: flex;
+    gap: 8px;
+}
+
+.entry-input {
+    width: 95%;
+    height: 40px;
+    padding: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.23);
+    border-radius: 4px;
+}
+
+.entry-name {
+    width: 95%;
+    padding: 3px;
+    border: 1px solid transparent;
 }
 
 .button:hover {
@@ -27,16 +41,4 @@ input {
 
 .btn-eraser:hover {
     color: #e74c3c;
-}
-
-.entry-item {
-    display: flex;
-    align-items: center; /* 세로 정렬 */
-    gap: 10px; /* 요소 간 간격 */
-}
-
-.entry-item input {
-    flex: 1; /* 필요한 경우 input 필드의 너비 확장 */
-    padding: 5px;
-    font-size: 14px;
 }
