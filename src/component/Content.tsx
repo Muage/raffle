@@ -26,14 +26,16 @@ const initEntry = [
 
 const Content = ({ isNavOpen }: Props) => {
 
+    const className = '무도'
+    
     const [entries, setEntries] = useState<Entry[]>(initEntry)
 
     return (
         <>
         <div className={`content ${isNavOpen ? 'shifted' : ''}`}>
             <Routes>
-                <Route path="/" element={<EntriesManagement entries={entries} setEntries={setEntries} />} />
-                <Route path="/raffle" element={<Raffle entries={entries} />} />
+                <Route path="/" element={<EntriesManagement className={className} entries={entries} setEntries={setEntries} />} />
+                <Route path="/raffle" element={<Raffle className={className} entries={entries} />} />
             </Routes>
         </div>
         </>

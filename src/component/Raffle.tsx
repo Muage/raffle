@@ -10,10 +10,11 @@ import { Button, Grid2 } from "@mui/material"
 import '../assets/css/raffle.css'
 
 interface Props {
+    className: string,
     entries: Entry[],
 }
 
-const Raffle = ({ entries }: Props) => {
+const Raffle = ({ className, entries }: Props) => {
 
     const [raffleInfoList, setRaffleInfoList] = useState<RaffleInfo[]>([{ id: uuid(), title: '', winNum: 1, winners: [] }])
 
@@ -77,7 +78,7 @@ const Raffle = ({ entries }: Props) => {
     return (
         <>
         <div>
-            <h1>뽑기 참가자</h1>
+            <h1>{className}반 친구들</h1>
 
             <Grid2 container spacing={2} columns={7}>
                 {entries.map((entry) => (
@@ -118,13 +119,13 @@ const Raffle = ({ entries }: Props) => {
             </div>
 
                 {/* TODO: modal로 변경 예정 */}
-            <div className="winners-container">
+            {/* <div className="winners-container">
                 {raffleInfoList.map((raffleInfo) => {
                     if(raffleInfo.title !== '') {
                         return <Winner key={raffleInfo.id} title={raffleInfo.title} winners={raffleInfo.winners} />
                     }
                 })}
-            </div>
+            </div> */}
         </div>
         </>
     )

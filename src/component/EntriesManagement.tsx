@@ -7,13 +7,12 @@ import '../assets/css/entry.css'
 import { Alert, Box, Grid2, Snackbar, TextField } from "@mui/material"
 
 interface Props {
+    className: string,
     entries: Entry[],
     setEntries: React.Dispatch<React.SetStateAction<Entry[]>>,
 }
 
-const className = '무도'
-
-const EntriesManagement = ({ entries, setEntries }: Props) => {
+const EntriesManagement = ({ className, entries, setEntries }: Props) => {
     
     const inputEntry = useRef<HTMLInputElement>(null)
     const [name, setName] = useState<string>('')

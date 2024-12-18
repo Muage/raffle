@@ -35,7 +35,10 @@ const RaffleCondition = ({ entries, raffleInfo, updateRaffleInfoList, removeRaff
         <>
         <Box
             className="content-condition"
-            sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }}>
+            sx={{ 
+                height: 60,
+                "& .MuiOutlinedInput-notchedOutline": { border: "none" }
+            }}>
             <Select
                 className="content-select"
                 value={raffleInfo.winNum}
