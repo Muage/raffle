@@ -5,6 +5,8 @@ import { Entry } from "../models/Entry"
 import RaffleCondition from "./RaffleCondition"
 import Winner from "./Winner"
 import { BiPlusCircle } from "react-icons/bi"
+import { BiShuffle } from "react-icons/bi";
+import { Button, Grid2 } from "@mui/material"
 import '../assets/css/raffle.css'
 
 interface Props {
@@ -14,12 +16,6 @@ interface Props {
 const Raffle = ({ entries }: Props) => {
 
     const [raffleInfoList, setRaffleInfoList] = useState<RaffleInfo[]>([{ id: uuid(), title: '', winNum: 1, winners: [] }])
-
-    const columns = 7
-    const rows = Array.from(
-        { length: Math.ceil(entries.length / columns) },
-        (_, index) =>  entries.slice(index * columns, index * columns + columns)
-    )
 
     // Fisher-Yates Shuffle
     const shuffle = (arr: string[]) => {
@@ -80,40 +76,48 @@ const Raffle = ({ entries }: Props) => {
 
     return (
         <>
-        <div className="center-container">
-            <div>
-                <h1>추첨 대상</h1>
-                <table>
-                    <tbody>
-                        {rows.map((row, rowIndex) => (
-                            <tr key={rowIndex}>
-                                {row.map((entry, index) => (
-                                    <td key={index}>
-                                        <img src="images/star.png" width={30}/>
-                                        {entry.name}
-                                    </td>
-                                ))}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+        <div>
+            <h1>뽑기 참가자</h1>
+
+            <Grid2 container spacing={2} columns={7}>
+                {entries.map((entry) => (
+                    <Grid2 key={entry.id} size={1} alignItems="center">
+                        <div className="name-container">
+                            <img src="images/star.png" width={30} />
+                            <span className="name">{entry.name}</span>
+                        </div>
+                    </Grid2>
+                ))}
+            </Grid2>
 
             <div className="raffle-condition-container">
-                {raffleInfoList.map((raffleInfo, index) => (
+                {raffleInfoList.map((raffleInfo) => (
                     <RaffleCondition
                         key={raffleInfo.id}
                         entries={entries}
                         raffleInfo={raffleInfo}
-                        showBtnPlus={index === raffleInfoList.length - 1}
                         updateRaffleInfoList={updateRaffleInfoList}
-                        removeRaffleTitle={removeRaffleTitle}
-                        addRaffleTitle={addRaffleTitle} />
+                        removeRaffleTitle={removeRaffleTitle} />
                 ))}
-                {raffleInfoList.length < 1 && <BiPlusCircle className="button" size={30} onClick={addRaffleTitle} />}
-                {raffleInfoList.length > 0 && <button onClick={raffle}>Raffle</button>}
+                <BiPlusCircle className="button" size={30} onClick={addRaffleTitle} />
+                {raffleInfoList.length > 0 &&
+                    <Button
+                        endIcon={<BiShuffle />}
+                        onClick={raffle}
+                        sx={{
+                            backgroundColor: "#999",
+                            color: "#fff",
+                            padding: "10px 30px",
+                            '&:hover': {
+                                backgroundColor: "#3c388e"
+                            }
+                        }}>
+                        <span>뽑기</span>
+                    </Button>
+                }
             </div>
 
+                {/* TODO: modal로 변경 예정 */}
             <div className="winners-container">
                 {raffleInfoList.map((raffleInfo) => {
                     if(raffleInfo.title !== '') {

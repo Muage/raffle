@@ -69,7 +69,7 @@ const EntriesManagement = ({ entries, setEntries }: Props) => {
                 </Grid2>
             </Grid2>
 
-            <Grid2 container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            <Grid2 container spacing={2} columns={4}>
                 {entries.map((entry) => (
                     <EntryItem key={entry.id} entry={entry} editEntry={editEntry} deleteEntry={deleteEntry} />
                 ))}

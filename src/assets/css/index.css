@@ -5,7 +5,7 @@
 
 :root {
   font-family: "arara";
-  font-size: 2rem !important;
+  font-size: 2rem;
   line-height: 1.5;
   font-synthesis: none;
 }
@@ -24,14 +24,13 @@ body {
 }
 
 input {
-  font-family: "arara" !important;
-  font-size: 1rem !important;
+  font-family: "arara";
+  font-size: 1rem;
   margin: 4px 0;
   padding-left: 5px !important;
 }
 
 label {
-  font-family: "arara" !important;
   font-size: 1rem !important;
   top: -2px !important;
   left: 10px !important
