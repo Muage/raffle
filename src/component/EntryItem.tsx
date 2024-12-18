@@ -32,7 +32,7 @@ const EntryItem = ({ entry, editEntry, deleteEntry }: Props) => {
     return (
         <Grid2 size={3}>
             <Card variant="outlined">
-                <CardContent className="entry-item">
+                <CardContent className="entry-item" sx={{ "&:last-child": { paddingBottom: "16px" } }}>
                     <div className="entry-item-left">
                         {isEdit ? (
                             <input

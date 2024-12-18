@@ -1,8 +1,5 @@
-.input-container {
-    display: flex;
-    margin-top: 50px;
+.container {
     align-items: center;    /* 수직 정렬 */
-    gap: 10px;              /* 요소 간 간격 */
 }
 
 .entry-item {
@@ -25,13 +22,18 @@
     width: 95%;
     height: 40px;
     padding: 3px;
-    border: 1px solid rgba(0, 0, 0, 0.23);
+    border: 1px solid transparent;
     border-radius: 4px;
+}
+
+.entry-input:focus {
+    border: 1px solid #0056b3;
 }
 
 .entry-name {
     width: 95%;
     padding: 3px;
+    padding-left: 5px;
     border: 1px solid transparent;
 }
 
@@ -41,4 +43,8 @@
 
 .btn-eraser:hover {
     color: #e74c3c;
+}
+
+.css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input {
+    padding: 16.5px 14px !important;
 }
