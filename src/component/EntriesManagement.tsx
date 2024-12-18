@@ -4,7 +4,7 @@ import { Entry } from "../models/Entry"
 import { v4 as uuid } from 'uuid'
 import EntryItem from "./EntryItem"
 import '../assets/css/entry.css'
-import { Box, Grid2, TextField } from "@mui/material"
+import { Alert, Box, Grid2, Snackbar, TextField } from "@mui/material"
 
 interface Props {
     entries: Entry[],
@@ -17,16 +17,18 @@ const EntriesManagement = ({ entries, setEntries }: Props) => {
     
     const inputEntry = useRef<HTMLInputElement>(null)
     const [name, setName] = useState<string>('')
+    const [isValidation, setIsValidation] = useState<boolean>(true)
 
     const insertEntry = (name: string) => {
         if(name.trim() !== '') {
+            setIsValidation(true)
             const newEntry: Entry = { id: uuid(), name: name }
             setEntries((prevEntries) => [...prevEntries, newEntry])
             setName('')
         } else {
             setName('')
+            setIsValidation(false)
             inputEntry.current?.focus()
-            console.log(inputEntry.current)
         }
     }
 
@@ -54,7 +56,7 @@ const EntriesManagement = ({ entries, setEntries }: Props) => {
                     <TextField
                         label="새 친구 이름"
                         value={name}
-                        ref={inputEntry}
+                        inputRef={inputEntry}
                         onChange={(e) => setName(e.target.value)}
                         onKeyDown={(e) => {e.key == 'Enter' && insertEntry(name)}}
                         sx={{
@@ -72,6 +74,16 @@ const EntriesManagement = ({ entries, setEntries }: Props) => {
                     <EntryItem key={entry.id} entry={entry} editEntry={editEntry} deleteEntry={deleteEntry} />
                 ))}
             </Grid2>
+
+            <Snackbar
+                open={!isValidation}
+                onClose={() => setIsValidation(true)}
+                autoHideDuration={2000}
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
+                <Alert severity="error" sx={{ display: "flex", alignItems: "center" }}>
+                    이름을 입력해주세요.
+                </Alert>
+            </Snackbar>
         </Box>
     )
 
