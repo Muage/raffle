@@ -1,18 +1,19 @@
-import { useEffect, useRef, useState } from "react"
+import EntryItem from "./EntryItem"
+import { useRef, useState } from "react"
 import { BiPlusCircle } from "react-icons/bi"
 import { Entry } from "../models/Entry"
 import { v4 as uuid } from 'uuid'
-import EntryItem from "./EntryItem"
-import '../assets/css/entry.css'
 import { Alert, Box, Grid2, Snackbar, TextField } from "@mui/material"
+import '../assets/css/entry.css'
 
 interface Props {
     className: string,
     entries: Entry[],
+    isNavOpen: boolean,
     setEntries: React.Dispatch<React.SetStateAction<Entry[]>>,
 }
 
-const EntriesManagement = ({ className, entries, setEntries }: Props) => {
+const EntriesManagement = ({ className, entries, isNavOpen, setEntries }: Props) => {
     
     const inputEntry = useRef<HTMLInputElement>(null)
     const [name, setName] = useState<string>('')
@@ -56,6 +57,7 @@ const EntriesManagement = ({ className, entries, setEntries }: Props) => {
                         label="새 친구 이름"
                         value={name}
                         inputRef={inputEntry}
+                        className="input-new-name"
                         onChange={(e) => setName(e.target.value)}
                         onKeyDown={(e) => {e.key == 'Enter' && insertEntry(name)}}
                         sx={{
@@ -78,7 +80,8 @@ const EntriesManagement = ({ className, entries, setEntries }: Props) => {
                 open={!isValidation}
                 onClose={() => setIsValidation(true)}
                 autoHideDuration={2000}
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                sx={{ transform: isNavOpen ? 'translateX(195px)' : 'none' }}>
                 <Alert severity="error" sx={{ display: "flex", alignItems: "center" }}>
                     이름을 입력해주세요.
                 </Alert>

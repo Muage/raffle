@@ -1,7 +1,28 @@
+.button:hover {
+    color: #0056b3;
+}
+
+/* EtriesManagement.tsx */
 .container {
     align-items: center;    /* 수직 정렬 */
 }
 
+.MuiInputBase-root.MuiOutlinedInput-root {
+    border-radius: 4px !important;
+}
+
+.css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input {
+    padding: 14px !important;
+    padding-left: 20px !important;
+    padding-right: 0px !important;
+}
+
+.css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input:focus {
+    padding: 20px 0px 10px 20px !important;
+}
+/* */
+
+/* EntryItem.tsx */
 .entry-item {
     display: flex;
     align-items: center;
@@ -37,18 +58,7 @@
     border: 1px solid transparent;
 }
 
-.button:hover {
-    color: #0056b3;
-}
-
 .btn-eraser:hover {
     color: #e74c3c;
 }
-
-.css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input {
-    padding: 16.5px 14px !important;
-}
-
-.MuiAlert-message {
-    font-family: "arara";
-}
+/* */

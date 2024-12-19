@@ -6,16 +6,18 @@ import RaffleCondition from "./RaffleCondition"
 import Winner from "./Winner"
 import { BiPlusCircle } from "react-icons/bi"
 import { BiShuffle } from "react-icons/bi";
-import { Button, Grid2 } from "@mui/material"
+import { Alert, Button, Grid2, Snackbar } from "@mui/material"
 import '../assets/css/raffle.css'
 
 interface Props {
     className: string,
     entries: Entry[],
+    isNavOpen: boolean
 }
 
-const Raffle = ({ className, entries }: Props) => {
+const Raffle = ({ className, entries, isNavOpen }: Props) => {
 
+    const [isValidation, setIsValidation] = useState<boolean>(true)
     const [raffleInfoList, setRaffleInfoList] = useState<RaffleInfo[]>([{ id: uuid(), title: '', winNum: 1, winners: [] }])
 
     // Fisher-Yates Shuffle
@@ -32,26 +34,26 @@ const Raffle = ({ className, entries }: Props) => {
 
     const raffle = () => {
         let sumWinNum = 0
+        let currentIndex = 0
+
         for(let raffleInfo of raffleInfoList) {
             sumWinNum += raffleInfo.winNum
         }
 
         if(sumWinNum <= entries.length) {
-            const shuffledEntries = shuffle(entries.map((entry) => entry.name)) // 참가자 이름 shuffle
-            let currentIndex = 0                                                // 현재 참가자 인덱스 추적
+            const shuffledEntries = shuffle(entries.map((entry) => entry.name))
 
             setRaffleInfoList((prevList) => {
                 return prevList.map((raffleInfo) => {
                     const winners = shuffledEntries.slice(currentIndex, currentIndex + raffleInfo.winNum)
 
-                    currentIndex += raffleInfo.winNum           // 현재 인덱스를 사용한 만큼 이동
+                    currentIndex += raffleInfo.winNum
 
-                    return { ...raffleInfo, winners: winners }  // 해당 Raffle의 당첨자 설정
+                    return { ...raffleInfo, winners: winners }
                 })
             })
         } else {
-            // TODO: toast "당첨자 수가 추첨 대상보다 많습니다."
-            console.warn(`${sumWinNum}, ${entries.length}`)
+            setIsValidation(false)
         }
     }
 
@@ -76,7 +78,6 @@ const Raffle = ({ className, entries }: Props) => {
     }
 
     return (
-        <>
         <div>
             <h1>{className}반 친구들</h1>
 
@@ -100,21 +101,18 @@ const Raffle = ({ className, entries }: Props) => {
                         updateRaffleInfoList={updateRaffleInfoList}
                         removeRaffleTitle={removeRaffleTitle} />
                 ))}
+
                 <BiPlusCircle className="button" size={30} onClick={addRaffleTitle} />
+
                 {raffleInfoList.length > 0 &&
-                    <Button
-                        endIcon={<BiShuffle />}
-                        onClick={raffle}
-                        sx={{
-                            backgroundColor: "#999",
-                            color: "#fff",
-                            padding: "10px 30px",
-                            '&:hover': {
-                                backgroundColor: "#3c388e"
-                            }
-                        }}>
-                        <span>뽑기</span>
-                    </Button>
+                    <div>
+                        <Button className="btn-raffle">
+                            조건 초기화
+                        </Button>
+                        <Button className="btn-raffle" endIcon={<BiShuffle />} onClick={raffle}>
+                            뽑기
+                        </Button>
+                    </div>
                 }
             </div>
 
@@ -126,8 +124,18 @@ const Raffle = ({ className, entries }: Props) => {
                     }
                 })}
             </div> */}
+
+            <Snackbar
+                open={!isValidation}
+                onClose={() => setIsValidation(true)}
+                autoHideDuration={2000}
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                sx={{ transform: isNavOpen ? 'translateX(265px)' : 'none' }}>
+                <Alert severity="error" sx={{ display: "flex", alignItems: "center" }}>
+                    당첨자 수가 추첨 대상보다 많습니다.
+                </Alert>
+            </Snackbar>
         </div>
-        </>
     )
 
 }

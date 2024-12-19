@@ -32,11 +32,10 @@ const RaffleCondition = ({ entries, raffleInfo, updateRaffleInfoList, removeRaff
     }
 
     return (
-        <>
         <Box
             className="content-condition"
             sx={{ 
-                height: 60,
+                height: "55px",
                 "& .MuiOutlinedInput-notchedOutline": { border: "none" }
             }}>
             <Select
@@ -61,7 +60,6 @@ const RaffleCondition = ({ entries, raffleInfo, updateRaffleInfoList, removeRaff
                 placeholder="제목" />
             <BiMinusCircle size={30} className="button btn-eraser" onClick={() => removeRaffleTitle(raffleInfo.id)} />
         </Box>
-        </>
     )
 
 }

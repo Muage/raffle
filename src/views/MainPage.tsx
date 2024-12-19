@@ -1,34 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import LeftNavBar from '../component/LeftNavBar'
 import Content from '../component/Content'
-import { BiMenu } from "react-icons/bi";
-import ClassName from '../component/ClassName';
 
 const MainPage = () => {
 
-    const [isFirst, setIsFirst] = useState<boolean>(false)
-    const [isNavOpen, setIsNavOpen] = useState<boolean>(true)
-    const [className, setClassName] = useState<string>('')
+    const className = sessionStorage.getItem('class-name')
 
-    const toggleNav = () => {
-        setIsNavOpen(state => !state)
-    }
+    const [isNavOpen, setIsNavOpen] = useState<boolean>(true)
+
+    const toggleNav = () => setIsNavOpen(state => !state)
+
+    useEffect(() => {
+        if(!className) {
+            setIsNavOpen(false)
+        }
+    }, [])
 
     return (
-        <>
-        {isFirst ? (
-            <div>
-                {!isNavOpen &&
-                    <BiMenu className="btn-menu" size={30} onClick={toggleNav} />
-                }
+        <div>
+            {className && <LeftNavBar isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} toggleNav={toggleNav} />}
 
-                <LeftNavBar isNavOpen={isNavOpen} toggleNav={toggleNav} />
-                <Content isNavOpen={isNavOpen} />
-            </div>
-        ) : (
-            <ClassName className={className} setClassName={setClassName} />
-        )}
-        </>
+            <Content isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+        </div>
     )
     
 }

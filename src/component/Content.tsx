@@ -1,12 +1,14 @@
-import Raffle from './Raffle'
-import { Route, Routes } from 'react-router-dom'
 import EntriesManagement from '../component/EntriesManagement'
-import { useState } from 'react'
+import Raffle from './Raffle'
+import ClassName from './ClassName'
+import { Route, Routes } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import { Entry } from '../models/Entry'
 
 interface Props {
     isNavOpen: boolean,
+    setIsNavOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 // TODO: 임시 데이터로 개발 완료 시 삭제하고 useState 기본값은 []로 수정하기
@@ -24,21 +26,46 @@ const initEntry = [
     { id: uuid(), name: '지석진' },
 ]
 
-const Content = ({ isNavOpen }: Props) => {
+const Content = ({ isNavOpen, setIsNavOpen }: Props) => {
 
-    const className = '무도'
-    
+    const getClassName = sessionStorage.getItem('class-name')
+
+    const [className, setClassName] = useState<string>('')
     const [entries, setEntries] = useState<Entry[]>(initEntry)
 
+    useEffect(() => {
+        if(getClassName) {
+            setClassName(getClassName)
+        }
+    }, [])
+
     return (
-        <>
         <div className={`content ${isNavOpen ? 'shifted' : ''}`}>
             <Routes>
-                <Route path="/" element={<EntriesManagement className={className} entries={entries} setEntries={setEntries} />} />
-                <Route path="/raffle" element={<Raffle className={className} entries={entries} />} />
+                <Route path="/"
+                    element={
+                        <ClassName
+                            className={className}
+                            setClassName={setClassName}
+                            setIsNavOpen={setIsNavOpen} />
+                    } />
+                <Route path="/entries"
+                    element={
+                        <EntriesManagement
+                            className={className}
+                            entries={entries}
+                            isNavOpen={isNavOpen}
+                            setEntries={setEntries} />
+                    } />
+                <Route path="/raffle"
+                    element={
+                        <Raffle
+                            className={className}
+                            entries={entries}
+                            isNavOpen={isNavOpen} />
+                    } />
             </Routes>
         </div>
-        </>
     )
 
 }
