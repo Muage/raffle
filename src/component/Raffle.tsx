@@ -57,6 +57,10 @@ const Raffle = ({ className, entries, isNavOpen }: Props) => {
         }
     }
 
+    const handleResetCondition = () => {
+        setRaffleInfoList([{ id: uuid(), title: '', winNum: 1, winners: [] }])
+    }
+
     const updateRaffleInfoList = (id: string, updateInfo: Partial<RaffleInfo>) => {
         setRaffleInfoList((prevList) =>
             prevList.map((raffleInfo) => {
@@ -106,7 +110,7 @@ const Raffle = ({ className, entries, isNavOpen }: Props) => {
 
                 {raffleInfoList.length > 0 &&
                     <div>
-                        <Button className="btn-raffle">
+                        <Button className="btn-reset" onClick={handleResetCondition}>
                             조건 초기화
                         </Button>
                         <Button className="btn-raffle" endIcon={<BiShuffle />} onClick={raffle}>

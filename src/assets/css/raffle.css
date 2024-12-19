@@ -24,17 +24,29 @@ div, li {
 }
 
 .raffle-condition-container {
-    margin-top: 30px;
+    margin-top: 60px;
     display: flex;
     flex-direction: column; /* 세로 정렬 */
     align-items: center;    /* 가로 중앙 정렬 */
     gap: 10px;              /* 조건 간 간격 */
 }
 
+.btn-reset {
+    background-color: #999 !important;
+    color: #fff !important;
+    padding: 10px 50px !important;
+    margin: 15px !important;
+}
+
+.btn-reset:hover {
+    background-color: #e74c3c !important;
+}
+
 .btn-raffle {
     background-color: #999 !important;
     color: #fff !important;
     padding: 10px 50px !important;
+    margin: 15px !important;
 }
 
 .btn-raffle:hover {
@@ -45,10 +57,11 @@ div, li {
 /* RaffleCondition.tsx */
 .content-condition {
     display: flex;
+    overflow: hidden;
     align-items: center;
+    margin: 5px;
     border: 1px solid #ced4da;
     border-radius: 4px;
-    overflow: hidden;
 }
 
 .content-select-item {
