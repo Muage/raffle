@@ -20,6 +20,7 @@ a {
   transform: translateX(125px);     /* 메뉴가 열렸을 때 오른쪽으로 이동 */
 }
 
+/* LeftNavBar.tsx */
 .btn-menu {
   position: absolute;
   top: 20px;
@@ -53,9 +54,22 @@ a {
   left: 0;
 }
 
-/* .left-nav-bar.closed {
-  left: -200px;
-} */
+.btn-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.btn-close:hover {
+  color: white;
+  background-color: #e74c3c;
+  border-radius: 10px;
+}
 
 .left-nav-bar ul {
   margin-top: 40px;
@@ -79,22 +93,16 @@ a {
   background-color: #34495e;
 }
 
-.btn-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 10px;
-  color: black;
-  border: none;
-  cursor: pointer;
-  font-size: 24px;
+.list-bottom {
+  margin-top: auto !important;
 }
 
-.btn-close:hover {
-  color: white;
-  background-color: #e74c3c;
-  border-radius: 10px;
+.list-bottom a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+/*  */
 
 /* ClassName.tsx */
 .container-class {
@@ -154,3 +162,4 @@ a {
 .btn-start:hover::before {
   left: 0;
 }
+/*  */
