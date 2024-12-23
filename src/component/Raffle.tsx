@@ -8,6 +8,8 @@ import { BiPlusCircle } from "react-icons/bi"
 import { BiShuffle } from "react-icons/bi";
 import { Alert, Button, Grid2, Snackbar } from "@mui/material"
 import '../assets/css/raffle.css'
+import { useNavigate } from "react-router-dom"
+import Loading from "./Loading"
 
 interface Props {
     className: string,
@@ -17,7 +19,10 @@ interface Props {
 
 const Raffle = ({ className, entries, isNavOpen }: Props) => {
 
+    const navigate = useNavigate()
+
     const [isValidation, setIsValidation] = useState<boolean>(true)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const [raffleInfoList, setRaffleInfoList] = useState<RaffleInfo[]>([{ id: uuid(), title: '', winNum: 1, winners: [] }])
 
     // Fisher-Yates Shuffle
@@ -57,6 +62,16 @@ const Raffle = ({ className, entries, isNavOpen }: Props) => {
         }
     }
 
+    const handleRaffle = () => {
+        raffle
+
+        setIsLoading(true)
+        setTimeout(() => {
+            setIsLoading(false)
+            navigate('/winner')
+        }, 3000)
+    }
+
     const handleResetCondition = () => {
         setRaffleInfoList([{ id: uuid(), title: '', winNum: 1, winners: [] }])
     }
@@ -83,62 +98,59 @@ const Raffle = ({ className, entries, isNavOpen }: Props) => {
 
     return (
         <div>
-            <h1>{className}반 친구들</h1>
+            {isLoading ? (
+                <Loading />
+            ) : (
+                <>
+                <h1>{className}반 친구들</h1>
 
-            <Grid2 container spacing={2} columns={7}>
-                {entries.map((entry) => (
-                    <Grid2 key={entry.id} size={1} alignItems="center">
-                        <div className="name-container">
-                            <img src="images/star.png" width={30} />
-                            <span className="name">{entry.name}</span>
+                <Grid2 container spacing={2} columns={7}>
+                    {entries.map((entry) => (
+                        <Grid2 key={entry.id} size={1} alignItems="center">
+                            <div className="name-container">
+                                <img src="images/star.png" alt="Star" width={30} />
+                                <span className="name">{entry.name}</span>
+                            </div>
+                        </Grid2>
+                    ))}
+                </Grid2>
+
+                <div className="raffle-condition-container">
+                    {raffleInfoList.map((raffleInfo) => (
+                        <RaffleCondition
+                            key={raffleInfo.id}
+                            entries={entries}
+                            raffleInfo={raffleInfo}
+                            updateRaffleInfoList={updateRaffleInfoList}
+                            removeRaffleTitle={removeRaffleTitle} />
+                    ))}
+
+                    <BiPlusCircle className="button" size={30} onClick={addRaffleTitle} />
+
+                    {raffleInfoList.length > 0 &&
+                        <div>
+                            <Button className="btn-reset" onClick={handleResetCondition}>
+                                조건 초기화
+                            </Button>
+                            <Button className="btn-raffle" endIcon={<BiShuffle />} onClick={handleRaffle}>
+                                뽑기
+                            </Button>
                         </div>
-                    </Grid2>
-                ))}
-            </Grid2>
-
-            <div className="raffle-condition-container">
-                {raffleInfoList.map((raffleInfo) => (
-                    <RaffleCondition
-                        key={raffleInfo.id}
-                        entries={entries}
-                        raffleInfo={raffleInfo}
-                        updateRaffleInfoList={updateRaffleInfoList}
-                        removeRaffleTitle={removeRaffleTitle} />
-                ))}
-
-                <BiPlusCircle className="button" size={30} onClick={addRaffleTitle} />
-
-                {raffleInfoList.length > 0 &&
-                    <div>
-                        <Button className="btn-reset" onClick={handleResetCondition}>
-                            조건 초기화
-                        </Button>
-                        <Button className="btn-raffle" endIcon={<BiShuffle />} onClick={raffle}>
-                            뽑기
-                        </Button>
-                    </div>
-                }
-            </div>
-
-                {/* TODO: modal로 변경 예정 */}
-            {/* <div className="winners-container">
-                {raffleInfoList.map((raffleInfo) => {
-                    if(raffleInfo.title !== '') {
-                        return <Winner key={raffleInfo.id} title={raffleInfo.title} winners={raffleInfo.winners} />
                     }
-                })}
-            </div> */}
+                </div>
 
-            <Snackbar
-                open={!isValidation}
-                onClose={() => setIsValidation(true)}
-                autoHideDuration={2000}
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                sx={{ transform: isNavOpen ? 'translateX(265px)' : 'none' }}>
-                <Alert severity="error" sx={{ display: "flex", alignItems: "center" }}>
-                    당첨자 수가 추첨 대상보다 많습니다.
-                </Alert>
-            </Snackbar>
+                <Snackbar
+                    open={!isValidation}
+                    onClose={() => setIsValidation(true)}
+                    autoHideDuration={2000}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                    sx={{ transform: isNavOpen ? 'translateX(265px)' : 'none' }}>
+                    <Alert severity="error" sx={{ display: "flex", alignItems: "center" }}>
+                        당첨자 수가 추첨 대상보다 많습니다.
+                    </Alert>
+                </Snackbar>
+                </>
+            )}
         </div>
     )
 
